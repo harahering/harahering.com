@@ -1,0 +1,68 @@
+# harahering.com
+
+harahering のアプリ紹介サイトです。GitHub Pages で `https://harahering.com/` として公開します(公開前は非公開リポジトリ)。
+
+Jekyll は使わず、普通の HTML として置いています(`.nojekyll`)。
+
+## 構成
+
+| パス | 内容 |
+|---|---|
+| `/` | 開発者のトップ(アプリの一覧) |
+| `/dayline/` | Day Line の紹介 |
+| `/dayline/help/` | ヘルプ |
+| `/dayline/terms/` | 利用規約(アプリの課金画面からも開く) |
+| `/dayline/privacy/` | プライバシーポリシー(App Store Connect にも登録する) |
+| `/dayline/news/` | お知らせ(`news.json` を読み込んで表示) |
+| `/dayline/news.json` | お知らせのデータ。アプリもこのファイルを読む |
+| `/assets/` | スタイル、お知らせの表示用スクリプト、アイコン |
+
+**`/dayline/news.json` の場所は変えないこと。** 公開したアプリがこの URL を読みに来るため、変えると古いバージョンでお知らせが読めなくなります。
+
+## お知らせの書き方
+
+`dayline/news.json` の `items` に1件足します。並び順は気にしなくてかまいません(日付の新しい順に表示されます)。
+
+```json
+{
+  "id": "2026-11-bugfix-video",
+  "date": "2026-11-05",
+  "title": "動画が再生できない不具合について",
+  "body": "1行目の文章です。\n\n空行(\\n\\n)で段落が分かれます。[ヘルプ](https://harahering.com/dayline/help/)のようにリンクも書けます。",
+  "important": true,
+  "minVersion": "1.0",
+  "maxVersion": "1.0.1"
+}
+```
+
+| 項目 | 必須 | 内容 |
+|---|---|---|
+| `id` | ○ | お知らせごとに違う文字列。**一度出したら変えない**(アプリはこれで既読を判断する)。日付と内容が分かる英数字とハイフンにする |
+| `date` | ○ | `YYYY-MM-DD` |
+| `title` | ○ | 見出し |
+| `body` | ○ | 本文。改行は `\n`、段落は `\n\n`。リンクは `[文字](https://...)` |
+| `important` | | `true` にすると、アプリのホームにもカードで表示する。不具合や大事な変更のときだけ使う |
+| `minVersion` / `maxVersion` | | アプリでは、このバージョンの範囲の人にだけ表示する(両端を含む)。不具合のお知らせを、影響のあるバージョンにだけ出すときに使う。サイトには常に表示する |
+
+書いたら、JSON として正しいかを確かめてから反映します。
+
+```bash
+python3 -c "import json; json.load(open('dayline/news.json')); print('OK')"
+```
+
+## 手元で見る
+
+```bash
+python3 -m http.server 8000
+```
+
+ブラウザで `http://localhost:8000/dayline/` を開きます。
+
+## 公開前に残っていること
+
+- [ ] 独自ドメイン `harahering.com` を購入し、DNS を GitHub Pages に向ける
+- [ ] リポジトリを公開にし、Settings → Pages で `main` ブランチを公開、カスタムドメインと HTTPS を設定する
+- [ ] 問い合わせフォーム(Google フォームなど)を作り、各ページの「お問い合わせ(準備中)」をリンクに差し替える
+- [ ] 利用規約・プライバシーポリシーの内容を確認し、施行日と管轄裁判所を埋める
+- [ ] App Store のリンクを差し替える(アプリの公開後)
+- [ ] 最初のお知らせ(`2026-10-release`)の日付を公開日に合わせる
