@@ -46,6 +46,16 @@ a { color: var(--main); }
   padding: 0 16px;
 }
 
+/* Shown on every page until the app is released */
+.prerelease {
+  background: var(--main);
+  color: var(--on-main);
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+  padding: 8px 16px;
+}
+
 /* Header and footer */
 .site-header {
   padding: 20px 0 8px;
