@@ -136,6 +136,25 @@ ul, ol { padding-left: 1.4em; }
   font-size: 13px;
 }
 
+/* A list of label and text pairs (特定商取引法に基づく表記) */
+.legal-table {
+  background: var(--card);
+  border-radius: 14px;
+  padding: 4px 20px;
+  margin: 16px 0;
+}
+.legal-table dt {
+  font-weight: 700;
+  padding-top: 12px;
+}
+.legal-table dd {
+  margin: 0;
+  padding: 2px 0 12px;
+  border-bottom: 1px solid var(--border);
+}
+.legal-table dd:last-child { border-bottom: none; }
+.legal-table ul { margin: 0; }
+
 /* Day Line top */
 .hero {
   display: flex;
